@@ -18,9 +18,10 @@ SELECT Medico.Crm, Medico.Nome, Especialidade.Nome AS EspecialidadeMedica FROM M
 INNER JOIN Especialidade ON Especialidade.IdEspecialidade = Medico.IdEspecialidade;
 
 --MEDICOS, SUAS ESPECIALIDADES E CLINICA DE ATUAÇÃO
-SELECT Medico.Crm, Medico.Nome, Especialidade.Nome AS EspecialidadeMedica, Clinica.Nome AS ClinicaDeAtuação, Clinica.Endereco FROM Medico
+SELECT Medico.Crm, Medico.Nome, Especialidade.Nome AS EspecialidadeMedica, Clinica.Nome AS ClinicaDeAtuação, Endereco.Cidade ,Endereco.Rua, Endereco.Numero FROM Medico
 INNER JOIN Especialidade ON Especialidade.IdEspecialidade = Medico.IdEspecialidade
-INNER JOIN Clinica ON Clinica.IdClinica = Medico.IdClinica;
+INNER JOIN Clinica ON Clinica.IdClinica = Medico.IdClinica
+INNER JOIN Endereco ON Endereco.IdEndereco = Clinica.IdEndereco;
 
 --IDADE DOS PACIENTES
 SELECT Prontuario.Nome, Prontuario.DataNascimento, 
@@ -31,7 +32,7 @@ THEN
 (DATEDIFF(YEAR,Prontuario.DataNascimento,GETDATE()))
 ELSE
 (DATEDIFF(YEAR,Prontuario.DataNascimento,GETDATE()))- 1
- END AS IDADEATUAL
+ END AS IdadeAtual
 from Prontuario;
 
 --STORED PROCEDURE CALCULO IDADE
